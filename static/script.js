@@ -62,3 +62,24 @@ fetchWeatherData();
 
 // Implemented long polling to update weather data every 10 minutes
 setInterval(() => updateWeather(), 6000); // 600000 ms = 10 minutes
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleFahrenheit = document.getElementById('toggleFahrenheit');
+  const temperatureElements = document.querySelectorAll('[id^="temperature"]');
+  
+  toggleFahrenheit.addEventListener('change', function () {
+      const isFahrenheit = toggleFahrenheit.checked;
+      const temperatureValue = parseFloat(temperatureElements[0].innerText);
+
+      if (isFahrenheit) {
+          // Convert to Fahrenheit
+          const fahrenheit = (temperatureValue * 9 / 5) + 32;
+          temperatureElements.forEach(element => element.innerText = fahrenheit.toFixed(2));
+      } else {
+          // Convert back to Celsius
+          temperatureElements.forEach(element => element.innerText = temperatureValue.toFixed(2));
+      }
+  });
+});
