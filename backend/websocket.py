@@ -41,7 +41,7 @@ def handle_connect():
 
         )
         
-    return data
+    print(f"Sending {data} to client")
 
 @socketio.on('disconnect')
 def handle_disconnect():
