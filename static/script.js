@@ -1,9 +1,11 @@
 api_key = 'd4cf8a7a60a0e91e4b8a258029176861'
 
 function fetchWeatherData() {
-  city = request.form['CityName']
-  const apiKey = 'd4cf8a7a60a0e91e4b8a258029176861';
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}&units=metric`;
+  const city = document.getElementById('city-name');
+  var apiKey = "d4cf8a7a60a0e91e4b8a258029176861";
+
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d4cf8a7a60a0e91e4b8a258029176861&units=metric`;
 
   return fetch(url)
    .then(response => {
@@ -21,7 +23,7 @@ function fetchWeatherData() {
         windSpeed: data.wind.speed,
         windDeg: data.wind.deg,
       };
-      return weatherData;
+      console.log(weatherData);
     })
    .catch(error => {
       console.error('Error fetching weather data:', error);
@@ -56,7 +58,7 @@ function updateWeather() {
 }
 
 
-updateWeather();
+fetchWeatherData();
 
 // Implemented long polling to update weather data every 10 minutes
-setInterval(updateWeather, 600000); // 600000 ms = 10 minutes
+setInterval(() => updateWeather(), 6000); // 600000 ms = 10 minutes

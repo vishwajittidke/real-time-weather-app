@@ -2,6 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 from dataclasses import dataclass
+from flask import request, render_template
 
 @dataclass
 class WeatherData:
@@ -25,26 +26,25 @@ class errorhandling:
 load_dotenv()
 api_key = os.getenv('API_KEY') 
 
-users_preferences = {
-    'locations' : [],
-    'units_in_metric' : 'metric',
-    'units_in_imperial' : 'imperial'
-}
-
 
 def get_lat_lon(city_name, api_key):
-    resp = requests.get(f'https://api.openweathermap.org/geo/1.0/direct?q={city_name}&appid={api_key}&units=metric').json()
-    if resp and resp[0].get('lat') and resp[0].get('lon'):
-        data = resp[0]
-        lat, lon = data.get('lat'), data.get('lon') 
-        
-        return lat, lon
-    else:
-        raise ValueError(f"City '{city_name}' not found")
 
+    try:
+        resp = requests.get(f'https://api.openweathermap.org/geo/1.0/direct?q={city_name}&appid={api_key}&units=metric').json()
+        if resp and resp[0].get('lat') and resp[0].get('lon'):
+            data = resp[0]
+            lat, lon = data.get('lat'), data.get('lon') 
+            
+            return lat, lon
+        else:
+            raise ValueError(f"City '{city_name}' not found")
 
+    except:
+        print(f"City not found")
 
 def get_current_weather(lat, lon, api_key):
+        
+    try:
         resp = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric').json()
         
         data = WeatherData (
@@ -61,19 +61,11 @@ def get_current_weather(lat, lon, api_key):
             cityName= resp.get('name')
 
         )
-        return data 
+        return data
+    
+    except:
+        print(f"Enter correct city name")
 
-def add_location(location):
-    users_preferences['locations'].append(location)
-
-def remove_location(location):
-    users_preferences['locations'].remove(location)
-
-def set_units(units):
-    users_preferences['units'] = units
-
-def get_user_preferences():
-    return users_preferences
 
 def main(city_name):
     try:
@@ -81,9 +73,8 @@ def main(city_name):
         weather_data = get_current_weather(lat, lon, api_key)
         return weather_data
     
-    except ValueError as e:
-        print(f"Error: {e}")
-        return None
+    except:
+        print(f"City Not found")
 
 if __name__ == "__main__":
     lat, lon = get_lat_lon('Akola', api_key)

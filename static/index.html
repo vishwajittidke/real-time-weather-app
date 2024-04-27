@@ -67,7 +67,7 @@
     
     <div class="container my-5" >
       {% if data %}
-      <h1 class="my-4 text-white text-center"> Weather,  {{  data.cityName }}</h1>
+      <h1 class="my-4 text-white text-center"> Weather,  <span id="city-name">{{  data.cityName }}</span></h1>
       {% endif %}
       <main>
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -196,7 +196,7 @@
              style="background-color: #6351ce"
              >
       <div class="me-5">
-        <span>Get connected with us on social networks:</span>
+        <span></span>
       </div>
       
       <div>

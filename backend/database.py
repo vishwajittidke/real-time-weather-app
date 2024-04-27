@@ -4,12 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# POSTGRES_URL= '127.0.0.1:5000'
-# POSTGRES_USER= 'postgres'
-# POSTGRES_PW = 'postgres'
-# POSTGRES_DB = 'weather_dashboard'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sample.db'
 
 db = SQLAlchemy(app)
