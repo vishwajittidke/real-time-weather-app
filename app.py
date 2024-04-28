@@ -32,12 +32,9 @@ socketio.init_app(app)
 
 @app.route('/')
 def home():
-    # Check if user is loggedin
+   
     if 'loggedin' in session:
-        
-        # User is loggedin show them the home page
         return render_template('index.html', username=session['username'])
-    # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
 
@@ -45,33 +42,25 @@ def home():
 def login():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
    
-    # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
         print(password)
  
-        # Check if account exists using MySQL
         cursor.execute('SELECT * FROM user_details WHERE username = %s', (username,))
-        # Fetch one record and return result
         account = cursor.fetchone()
  
         if account:
             password_rs = account['password']
             print(password_rs)
-            # If account exists in user_setails table in out database
             if request.method == "POST":
-                # Create session data, we can access this data in other routes
                 session['loggedin'] = True
                 session['id'] = account['id']
                 session['username'] = account['username']
-                # Redirect to home page
                 return redirect(url_for('dashboard'))
             else:
-                # Account doesnt exist or username/password incorrect
                 flash('Incorrect username/password')
         else:
-            # Account doesnt exist or username/password incorrect
             flash('Incorrect username/password')
  
     return render_template('login.html')
