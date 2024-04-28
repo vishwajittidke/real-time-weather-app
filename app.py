@@ -80,20 +80,16 @@ def login():
 def register():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
  
-    # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        # Create variables for easy access
         fullname = request.form['fullname']
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
     
-        
-        #Check if account exists using MySQL
         cursor.execute('SELECT * FROM user_details WHERE username = %s', (username,))
         account = cursor.fetchone()
         print(account)
-        # If account exists show error and validation checks
+
         if account:
             flash('Account already exists!')
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
@@ -103,24 +99,23 @@ def register():
         elif not username or not password or not email:
             flash('Please fill out the form!')
         else:
-            # Account doesnt exists and the form data is valid, now insert new account into users table
             cursor.execute("INSERT INTO user_details (username, password, fullname, email) VALUES (%s,%s,%s,%s)", (username, password, fullname, email))
             conn.commit()
             flash('You have successfully registered!')
             return render_template('login.html')
+        
     elif request.method == 'POST':
-        # Form is empty... (no POST data)
         flash('Please fill out the form!')
-    # Show registration form with message (if any)
+    
     return render_template('register.html')
 
 @app.route('/logout')
 def logout():
-    # Remove session data, this will log the user out
+   
    session.pop('loggedin', None)
    session.pop('id', None)
    session.pop('username', None)
-   # Redirect to login page
+  
    return redirect(url_for('login'))
 
 @app.route('/weather_dashboard', methods=['GET', 'POST'])

@@ -34,7 +34,7 @@ function fetchWeatherData() {
 function updateWeather() {
   fetchWeatherData().then(weatherData => {
     if (weatherData!== null) {
-      // It updates the temperature
+
       const temperatureElement = document.getElementById('temperature');
       temperatureElement.innerText = weatherData.temperature;
       const temperatureMinElement = document.getElementById('min-temp');
@@ -42,13 +42,13 @@ function updateWeather() {
       const temperatureMaxElement = document.getElementById('max-temp');
       temperatureMaxElement.innerText = weatherData.tempMax;
 
-      // this code updates the wind speed
+
       const windSpeedElement = document.getElementById('wind-speed');
       windSpeedElement.innerText = weatherData.windSpeed;
       const windSpeedDirectionElement = document.getElementById('wind-deg');
       windSpeedDirectionElement.innerText = weatherData.windDeg;
 
-      // this updates the humidity
+
       const humidityElement = document.getElementById('humidity');
       humidityElement.innerText = weatherData.humid;
     } else {
@@ -60,6 +60,6 @@ function updateWeather() {
 
 fetchWeatherData();
 
-// Implemented long polling to update weather data every 10 minutes
-setInterval(() => updateWeather(), 6000); // 600000 ms = 10 minutes
+
+setInterval(() => updateWeather(), 600000); 
 
