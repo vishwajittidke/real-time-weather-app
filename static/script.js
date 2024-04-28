@@ -1,9 +1,7 @@
 
 function fetchWeatherData() {
   const city = document.querySelector['city-name'];
-  // const city = 'Pune'; 
 
-  
   var apiKey = API_KEY;
   
 
