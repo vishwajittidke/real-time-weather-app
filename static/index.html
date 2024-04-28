@@ -71,7 +71,7 @@
 
   <div class="container my-5">
     {% if data %}
-    <h1 class="my-4 text-white text-center"> Weather of <span id="city-name">{{ data.cityName }}</span></h1>
+    <h1 name="cityName" class="my-4 text-white text-center"> {{ data.cityName }}</h1>
     {% endif %}
     <main>
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -83,14 +83,14 @@
             <div class="card-body">
               <h1 class="card-title pricing-card-title"><small
                   class="text-muted fw-light"><sup><span>&#8451;</span></sup></small></h1>
-              <ul id="temperature" class="list-unstyled mt-3 mb-4">
-                {% if data %}
-                <li>Temperature is <span id="temperature"> {{data.temperature}}</span> °C</li>
-                <li>Feels Like <span id="feels-like">{{ data.feelsLike }}</span> °C</li>
-                <li>Minimum Temperature: <span id="min-temp">{{ data.tempMin }}</span> °C</li>
-                <li>Maximum Temperature: <span id="max-temp">{{ data.tempMax }}</span> °C</li>
+              <ul class="list-unstyled mt-3 mb-4">
+                <!-- {% if data %} -->
+                <li name="temperature">Temperature is <span >{{data.temperature}}</span> °C</li>
+                <li name="feels-like">Feels Like <span >{{ data.feelsLike }}</span> °C</li>
+                <li name="min-temp">Minimum Temperature: <span >{{ data.tempMin }}</span> °C</li>
+                <li name="max-temp">Maximum Temperature: <span >{{ data.tempMax }}</span> °C</li>
                 <div class="bg-info"><img src="https://openweathermap.org/img/wn/{{data.icon}}@2x.png" alt="Icon"></div>
-                {% endif %}
+                <!-- {% endif %} -->
               </ul>
             </div>
           </div>
@@ -107,8 +107,8 @@
               <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">km/hr</small></h1>
               <ul id="windSpeed" class="list-unstyled mt-3 mb-4">
                 {% if data %}
-                <li>Wind Speed <span id="wind-speed">{{ data.windSpeed }}</span> mps</li>
-                <li>Wind Direction <span id="wind-deg">{{ data.windDeg }}</span> °</li>
+                <li name="wind-speed">Wind Speed <span>{{ data.windSpeed }}</span> mps</li>
+                <li name="wind-deg">Wind Direction <span>{{ data.windDeg }}</span> °</li>
                 {% endif %}
               </ul>
             </div>
@@ -121,9 +121,9 @@
             </div>
             <div class="card-body">
               <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">%</small></h1>
-              <ul id="humidity" class="list-unstyled mt-3 mb-4">
+              <ul class="list-unstyled mt-3 mb-4">
                 {% if data %}
-                <li>Humidity is <span id="humditi">{{ data.humidity }}</span></li>
+                <li name="humditi">Humidity is <span>{{ data.humidity }}</span></li>
                 {% endif %}
               </ul>
             </div>
@@ -227,6 +227,7 @@
 
     </div>
   </div>
+  <script src="/static/config.js"></script>
   <script src="/static/script.js"></script>
 </body>
 

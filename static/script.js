@@ -1,11 +1,13 @@
-api_key = 'd4cf8a7a60a0e91e4b8a258029176861'
 
 function fetchWeatherData() {
-  const city = document.getElementById('city-name');
-  var apiKey = "d4cf8a7a60a0e91e4b8a258029176861";
+  const city = document.querySelector['city-name'];
+  // const city = 'Pune'; 
 
+  
+  var apiKey = API_KEY;
+  
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d4cf8a7a60a0e91e4b8a258029176861&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   return fetch(url)
    .then(response => {
@@ -21,7 +23,7 @@ function fetchWeatherData() {
         tempMax: data.main.temp_max,
         humid: data.main.humidity,
         windSpeed: data.wind.speed,
-        windDeg: data.wind.deg,
+        windDeg: data.wind.deg
       };
       console.log(weatherData);
     })
