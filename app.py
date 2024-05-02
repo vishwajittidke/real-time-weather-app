@@ -62,7 +62,7 @@ def login():
                 flash('Incorrect username/password')
         else:
             flash('Incorrect username/password')
- 
+    print("You're logged in")
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
