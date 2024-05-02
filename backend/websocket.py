@@ -30,7 +30,7 @@ def get_weather_data(city_name, api_key):
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
-    # Get weather data for a specific location (e.g., Akola)
+    
     weather_data = get_weather_data('Akola')
     data = WeatherData (
             main=weather_data.get('weather')[0].get('main'),
