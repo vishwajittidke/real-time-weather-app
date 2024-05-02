@@ -49,4 +49,4 @@ def handle_disconnect():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
-    print(get_weather_data('Akola', api_key))
+    print(get_weather_data('Pune', api_key))
