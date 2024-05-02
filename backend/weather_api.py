@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 from dataclasses import dataclass
-from flask import request, render_template
+from flask import request
 
 @dataclass
 class WeatherData:

@@ -1,4 +1,3 @@
-
 function fetchWeatherData() {
   const city = document.querySelector['city-name'];
 
