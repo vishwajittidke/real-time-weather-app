@@ -139,7 +139,7 @@ if not DATABASE_URL:
     raise Exception("DATABASE_URL environment variable not set!")
 
 # Initialize Flask app
-app = Flask(__name__, template_folder='static')
+app = Flask(__name__)
 app.secret_key = 'hello'
 
 # PostgreSQL connection
