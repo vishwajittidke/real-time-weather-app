@@ -215,14 +215,9 @@ def dashboard():
         data = get_weather(city)
     return render_template('index.html', data=data)
 
-# Keep-alive logic for 24/7 running
-def run_web():
-    socketio.run(app, host='0.0.0.0', port=8080)
-
-def keep_alive():
-    t = Thread(target=run_web)
-    t.start()
 
 # Only call this if running directly
 if __name__ == "__main__":
-    keep_alive()
+    PORT = int(os.environ.get("PORT", 8080))
+    socketio.run(app, host="0.0.0.0", port=PORT)
+
