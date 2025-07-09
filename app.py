@@ -3,26 +3,29 @@ import psycopg2
 import psycopg2.extras
 import re 
 import app
+import os
 
 
 from backend.websocket import socketio
 from backend.weather_api import main as get_weather
 
-
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise Exception("DATABASE_URL environment variable not set!")
 
 app = Flask(__name__, template_folder='static')
 app.secret_key = 'hello'
 
 
-DB_HOST = "localhost"
-DB_NAME = "weather_db"
-DB_USER = "postgres"
-DB_PASS = "postgres"
+# DB_HOST = "localhost"
+# DB_NAME = "weather_db"
+# DB_USER = "postgres"
+# DB_PASS = "postgres"
  
-conn = psycopg2.connect(dbname="weather_db", user="postgres", password="postgres", host="localhost")
+conn = psycopg2.connect(DATABASE_URL)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
 
