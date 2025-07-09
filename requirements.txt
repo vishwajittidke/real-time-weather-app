@@ -4,3 +4,5 @@ psycopg2
 requests
 load_dotenv
 flask-socketio
+gunicorn
+eventlet
