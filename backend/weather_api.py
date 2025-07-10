@@ -25,6 +25,7 @@ class errorhandling:
 
 load_dotenv()
 api_key = os.getenv('API_KEY') 
+print(f"[DEBUG] Loaded API Key: {api_key}")
 
 
 def get_lat_lon(city_name, api_key):
