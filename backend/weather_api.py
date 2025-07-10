@@ -2,7 +2,6 @@ import requests
 from dotenv import load_dotenv
 import os
 from dataclasses import dataclass
-from flask import request
 
 @dataclass
 class WeatherData:
@@ -18,9 +17,6 @@ class WeatherData:
     windDeg : str
     cityName : str
     
-
-class errorhandling:
-    cod : str
 
 
 load_dotenv()
@@ -74,8 +70,9 @@ def get_current_weather(lat, lon, api_key):
         )
         return data
     
-    except:
-        print(f"Enter correct city name")
+    except Exception as e:
+        print(f"[EXCEPTION] Failed to fetch weather: {type(e).__name__}: {str(e)}")
+        return None
 
 
 def main(city_name):
