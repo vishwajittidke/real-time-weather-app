@@ -30,27 +30,26 @@ print(f"[DEBUG] Loaded API Key: {api_key}")
 
 def get_lat_lon(city_name, api_key):
     try:
+        print(f"[DEBUG] Fetching coordinates for city: {city_name}")
         resp = requests.get(
             f'https://api.openweathermap.org/geo/1.0/direct?q={city_name}&appid={api_key}&units=metric'
         )
-        data = resp.json()
-        
         if resp.status_code != 200:
-            print(f"[ERROR] API call failed: {resp.status_code}, {resp.text}")
+            print(f"[ERROR] API returned {resp.status_code}: {resp.text}")
             return None, None
         
-        if not data:
-            print(f"[ERROR] No data found for city: {city_name}")
+        data = resp.json()
+        if not data or 'lat' not in data[0] or 'lon' not in data[0]:
+            print(f"[ERROR] City not found in response data: {data}")
             return None, None
-        
-        lat = data[0].get('lat')
-        lon = data[0].get('lon')
 
-        print(f"[DEBUG] Found coordinates for {city_name}: lat={lat}, lon={lon}")
+        lat = data[0]['lat']
+        lon = data[0]['lon']
+        print(f"[DEBUG] Found coordinates: lat={lat}, lon={lon}")
         return lat, lon
-        
+
     except Exception as e:
-        print(f"[EXCEPTION] Failed to fetch lat/lon: {e}")
+        print(f"[EXCEPTION] Unexpected error in get_lat_lon: {type(e).__name__}: {str(e)}")
         return None, None
 
 
