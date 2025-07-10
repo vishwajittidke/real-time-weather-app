@@ -79,13 +79,17 @@ def get_current_weather(lat, lon, api_key):
 
 
 def main(city_name):
-    try:
-        lat, lon = get_lat_lon(city_name, api_key)
-        weather_data = get_current_weather(lat, lon, api_key)
-        return weather_data
-    
-    except:
+    lat, lon = get_lat_lon(city_name, api_key)
+    if not lat or not lon:
         print(f"City Not found")
+        return None
+
+    weather_data = get_current_weather(lat, lon, api_key)
+    if not weather_data:
+        print(f"Enter correct city name")
+        return None
+
+    return weather_data
 
 if __name__ == "__main__":
     lat, lon = get_lat_lon('Akola', api_key)
