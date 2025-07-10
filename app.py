@@ -212,7 +212,10 @@ def dashboard():
     data = None
     if request.method == 'POST':
         city = request.form['CityName']
+        print(f"City submitted: {city}")  # Debug line
         data = get_weather(city)
+        if not data:
+            flash("City not found or API error.")
     return render_template('index.html', data=data)
 
 
